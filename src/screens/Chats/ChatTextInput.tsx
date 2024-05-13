@@ -22,6 +22,7 @@ export function ChatTextInput() {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#fff',
     display: 'flex',
     flexDirection: 'row',
     width: screenWidth,
