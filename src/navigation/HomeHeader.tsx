@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { IconButton, Searchbar } from 'react-native-paper';
 import * as RootNavigation from '../utils/rootNavigation';
+import { useState } from 'react';
 
 export const HomeHeader = () => {
   const [search, setSearch] = useState<string>('');
