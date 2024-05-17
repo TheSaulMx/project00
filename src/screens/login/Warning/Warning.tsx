@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as apiService from '../../../services/api';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, PermissionsAndroid, StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -14,22 +14,30 @@ interface Message {
   author: string;
 }
 
-export default function Warning({ params, ejecutarFuncionPadre }: { params: any; ejecutarFuncionPadre: any }) {
+export default function Warning({ params, setUserAccepted }: { params: any; setUserAccepted: any }) {
   const [messageData, setMessageData] = useState<Message | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   const handlePress = () => {
-    // Llama a la función especial
-    if (params.signed) {
-      ejecutarFuncionPadre();
-    } else {
+    setUserAccepted(true);
+    if (!params.signed) {
       navigation.navigate('SignIn');
+    }
+  };
+
+  const getPermission = async () => {
+    const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      console.log('You can receive notifications');
+    } else {
+      console.log('You can`t receive notifications');
     }
   };
 
   useEffect(() => {
     getData();
+    getPermission();
   }, [params]);
 
   async function getData() {
