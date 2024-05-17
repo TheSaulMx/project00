@@ -8,7 +8,7 @@ interface TabBarIconMappings {
 }
 
 export const TabBarIconMappings: TabBarIconMappings = {
-  HomeMain: {
+  Home: {
     focus: require('../assets/images/bottomTabIcons/home-outline-focused.png'),
     unfocused: require('../assets/images/bottomTabIcons/home-outline.png'),
   },
