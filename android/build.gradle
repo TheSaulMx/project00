@@ -1,11 +1,17 @@
 buildscript {
     ext {
+        // react-native.push-notifications configs
+        googlePlayServicesVersion = "+" // default: "+"
+        firebaseMessagingVersion = "21.1.0" // default: "21.1.0"
+
         buildToolsVersion = "34.0.0"
         minSdkVersion = 23
         compileSdkVersion = 34
         targetSdkVersion = 34
         ndkVersion = "26.1.10909125"
         kotlinVersion = "1.9.22"
+
+        supportLibVersion = "23.1.1" // default: 23.1.1
     }
     repositories {
         google()
@@ -15,7 +21,11 @@ buildscript {
         classpath("com.android.tools.build:gradle")
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+        // NOTE: if you are on react-native 0.71 or below, you must not update
+        // the google-services plugin past version 4.3.15 as it requires gradle >= 7.3.0
+        classpath 'com.google.gms:google-services:4.4.1'
     }
 }
 
 apply plugin: "com.facebook.react.rootproject"
+//apply plugin: "com.google.gms.google-services" version '4.4.1' apply false

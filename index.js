@@ -5,9 +5,9 @@ import 'react-native-gesture-handler';
 import { AppRegistry } from 'react-native';
 import { name as appName } from './app.json';
 import App from './src/App';
-import { NavigationContainer } from '@react-navigation/native';
-import { navigationRef } from './src/utils/rootNavigation';
 import { MD3LightTheme, PaperProvider } from 'react-native-paper';
+import { setUpPushNotifications } from './src/utils/pushNotificationsConfig';
+import messaging from '@react-native-firebase/messaging';
 
 const theme = {
   ...MD3LightTheme, // or MD3DarkTheme
@@ -20,14 +20,18 @@ const theme = {
   },
 };
 
-const Main = () => {
+setUpPushNotifications();
+// Register background handler
+messaging().setBackgroundMessageHandler(async remoteMessage => {
+  console.log('Message handled in the background!', remoteMessage);
+});
+
+function Main() {
   return (
     <PaperProvider theme={theme}>
-      <NavigationContainer ref={navigationRef}>
-        <App />
-      </NavigationContainer>
+      <App />
     </PaperProvider>
   );
-};
+}
 
 AppRegistry.registerComponent(appName, () => Main);
