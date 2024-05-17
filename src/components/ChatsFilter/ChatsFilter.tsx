@@ -1,4 +1,3 @@
-import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { Button, Divider } from 'react-native-paper';
 

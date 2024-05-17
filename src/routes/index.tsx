@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
-import { HomeTabs } from './HomeTabs';
+import { AppRoutes } from './app.routes';
 import AuthRoutes from './auth.routes';
 import { useAuth } from '../contexts/auth';
 import { ChildProps } from '../screens/login/Warning/Warning';
@@ -21,7 +21,7 @@ const Routes: React.FC = () => {
     );
   }
 
-  return signed && accepted ? <HomeTabs /> : <AuthRoutes params={childProps} accepted={setAccepted} />;
+  return signed && accepted ? <AppRoutes /> : <AuthRoutes params={childProps} accepted={setAccepted} />;
 };
 
 const styles = StyleSheet.create({

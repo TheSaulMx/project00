@@ -1,13 +1,13 @@
 import { Image, StyleSheet, View } from 'react-native';
 import { IconButton, Searchbar } from 'react-native-paper';
-import * as RootNavigation from '../utils/rootNavigation';
+import * as RootNavigation from '../../utils/rootNavigation';
 import { useState } from 'react';
 
 export const HomeHeader = () => {
   const [search, setSearch] = useState<string>('');
   return (
     <View style={styles.headerContainer}>
-      <Image style={styles.profileIcon} source={require('../assets/images/user/profile-icon-xs.jpg')} />
+      <Image style={styles.profileIcon} source={require('../../assets/images/user/profile-icon-xs.jpg')} />
       <Searchbar
         placeholder="Buscar"
         value={search}

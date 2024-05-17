@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import MessageCard from '../../components/MessageCard/MessageCard';
 import { fetchData } from '../../services/getData';
-import { ChatsFilter } from './ChatsFilter';
+import { ChatsFilter } from '../../components/ChatsFilter/ChatsFilter';
 
 export default function Chats() {
   const [chats, setChats] = useState<any>([]);
