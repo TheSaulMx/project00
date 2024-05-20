@@ -3,14 +3,14 @@ import messaging from '@react-native-firebase/messaging';
 
 export function useMessaging() {
   const [loading, setLoading] = useState<boolean>(true);
-  const [initialRoute, setInitialRoute] = useState<string>('Home');
+  const [initialRoute, setInitialRoute] = useState<string | undefined>(undefined);
   const [initialNotification, setInitialNotification] = useState<any>();
+  const [fromQuitState, setFromQuitState] = useState<boolean>();
 
   useEffect(() => {
     // Assume a message-notification contains a "type" property in the data payload of the screen to open
     const unsuscribe = messaging().onNotificationOpenedApp((remoteMessage?) => {
       console.log('Notification caused app to open from background state:', remoteMessage);
-      //   navigation.navigate(remoteMessage?.data?.navigationId as string);
       setInitialNotification(remoteMessage);
     });
 
@@ -20,7 +20,11 @@ export function useMessaging() {
       .then(remoteMessage => {
         if (remoteMessage) {
           console.log('Notification caused app to open from quit state:', remoteMessage);
-          setInitialRoute(remoteMessage?.data?.navigationId as string); // e.g. "Settings"
+          setInitialNotification(remoteMessage);
+          setFromQuitState(true);
+          if (remoteMessage?.data?.link) {
+            setInitialRoute(remoteMessage?.data?.link as string); // e.g. "Settings"
+          }
         }
         setLoading(false);
       });
@@ -30,5 +34,5 @@ export function useMessaging() {
     };
   }, [initialNotification]);
 
-  return { initialRoute, loading, initialNotification };
+  return { initialRoute, loading, initialNotification, fromQuitState };
 }
