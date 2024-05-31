@@ -5,13 +5,16 @@ export function useMessaging() {
   const [loading, setLoading] = useState<boolean>(true);
   const [initialRoute, setInitialRoute] = useState<string | undefined>(undefined);
   const [initialNotification, setInitialNotification] = useState<any>();
-  const [fromQuitState, setFromQuitState] = useState<boolean>();
+  const [fromQuitState, setFromQuitState] = useState<boolean>(false);
 
   useEffect(() => {
     // Assume a message-notification contains a "type" property in the data payload of the screen to open
     const unsuscribe = messaging().onNotificationOpenedApp((remoteMessage?) => {
       console.log('Notification caused app to open from background state:', remoteMessage);
       setInitialNotification(remoteMessage);
+      if (remoteMessage?.data?.link) {
+        setInitialRoute(remoteMessage?.data?.link as string); // e.g. "Settings"
+      }
     });
 
     // Check whether an initial notification is available
